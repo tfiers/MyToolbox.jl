@@ -20,6 +20,9 @@ export savefig
 include("dataframes.jl")
 export printsimple
 
+include("macros.jl")
+export @alias, @exportn
+
 include("show.jl")
 
 end # module
