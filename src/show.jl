@@ -43,3 +43,37 @@ function Base.showarg(
     #    Don't print N for Vector or Matrix.
     print(io, "}")
 end
+
+"""
+    showex([io::IO = stdout,] x; nfirst = 2, nlast = 2, nsample = 2)
+
+Print an overview of the vector `x`, by example. Show its first and last entries, and a
+random sample in between.
+"""
+showex(        x; nfirst = 2, nlast = 2, nsample = 2) = showex(stdout, x; nfirst, nlast, nsample)
+showex(io::IO, x; nfirst = 2, nlast = 2, nsample = 2) = begin
+    if length(x) ≤ nfirst + nlast + nsample
+        nfirst = length(x)
+        nlast, nsample = 0, 0
+    end
+    summary(io, x)  # eg "640-element Vector{String}"
+    println(io)
+    all_i = 1:length(x)  # Always `Int`s
+    all_ix = eachindex(x)  # Generally same, but can also be `CartesianIndex`, `Symbol`, …
+    shown_i = @views vcat(
+        all_i[1:nfirst],
+        all_i[nfirst+1:end-nlast] |> (is -> sample(is, nsample)) |> sort,
+        all_i[end-nlast+1:end],
+    )
+    shown_ix = all_ix[shown_i]
+    ixlen = maximum(length, string.(shown_ix))
+    printrow(ix) = println(io, lpad(ix, ixlen), ": ", repr(x[ix]))
+    printdots() = println(io, lpad("⋮", ixlen + 2))
+    first(shown_i) == first(all_i) || printdots()
+    for (i, inext) in ziplongest(shown_i, shown_i[2:end])
+        printrow(all_ix[i])
+        isnothing(inext) || inext == i + 1 || printdots()
+    end
+    last(shown_i) == last(all_i) || printdots()
+    return nothing
+end
