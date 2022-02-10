@@ -45,12 +45,16 @@ function Base.showarg(
 end
 
 """
-    showex([io::IO = stdout,] x; nfirst = 2, nlast = 2, nsample = 2)
+    showex(x; kw...)
+    showex(io::IO, x; kw...)
 
-Print an overview of the vector `x`, by example. Show its first and last entries, and a
-random sample in between.
+Print an overview of the vector `x`, by showing example entries. The first and last
+entries are shown, and a few randomly sampled entries in between.
+
+Keyword arguments `nfirst`, `nlast`, and `nsample` determine how many samples to print at
+the beginning, end, and in between. Each defaults to `2`. `io` is `stdout` if not specified.
 """
-showex(        x; nfirst = 2, nlast = 2, nsample = 2) = showex(stdout, x; nfirst, nlast, nsample)
+showex(x        ; nfirst = 2, nlast = 2, nsample = 2) = showex(stdout, x; nfirst, nlast, nsample)
 showex(io::IO, x; nfirst = 2, nlast = 2, nsample = 2) = begin
     if length(x) ≤ nfirst + nlast + nsample
         nfirst = length(x)
@@ -66,7 +70,7 @@ showex(io::IO, x; nfirst = 2, nlast = 2, nsample = 2) = begin
     )
     shown_ix = all_ix[shown_i]
     padlen = 1 + maximum(length, string.(shown_ix))
-        # The extra `1` is the one-space indent of vanilla Vector printing.
+        # The initial extra `1` is the one-space indent of vanilla Vector printing.
     printrow(ix) = println(io, lpad(ix, padlen), ": ", repr(x[ix]))
     printdots() = println(io, lpad("⋮", padlen))
     first(shown_i) == first(all_i) || printdots()
