@@ -29,6 +29,6 @@ include("misctools.jl")
 export ziplongest
 
 include("show.jl")
-export showex
+export showsome
 
 end # module

@@ -45,8 +45,8 @@ function Base.showarg(
 end
 
 """
-    showex(x; kw...)
-    showex(io::IO, x; kw...)
+    showsome(x; kw...)
+    showsome(io::IO, x; kw...)
 
 Print an overview of the vector `x`, by showing example entries. The first and last
 entries are shown, and a few randomly sampled entries in between.
@@ -54,8 +54,8 @@ entries are shown, and a few randomly sampled entries in between.
 Keyword arguments `nfirst`, `nlast`, and `nsample` determine how many samples to print at
 the beginning, end, and in between. Each defaults to `2`. `io` is `stdout` if not specified.
 """
-showex(x        ; nfirst = 2, nlast = 2, nsample = 2) = showex(stdout, x; nfirst, nlast, nsample)
-showex(io::IO, x; nfirst = 2, nlast = 2, nsample = 2) = begin
+showsome(x        ; nfirst = 2, nlast = 2, nsample = 2) = showsome(stdout, x; nfirst, nlast, nsample)
+showsome(io::IO, x; nfirst = 2, nlast = 2, nsample = 2) = begin
     if length(x) ≤ nfirst + nlast + nsample
         nfirst = length(x)
         nlast, nsample = 0, 0
