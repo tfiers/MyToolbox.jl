@@ -56,8 +56,7 @@ showex(io::IO, x; nfirst = 2, nlast = 2, nsample = 2) = begin
         nfirst = length(x)
         nlast, nsample = 0, 0
     end
-    summary(io, x)  # eg "640-element Vector{String}"
-    println(io)
+    println(io, summary(x), ":")  # eg "640-element Vector{String}:"
     all_i = 1:length(x)  # Always `Int`s
     all_ix = eachindex(x)  # Generally same, but can also be `CartesianIndex`, `Symbol`, …
     shown_i = @views vcat(
