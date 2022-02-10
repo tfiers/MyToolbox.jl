@@ -65,9 +65,10 @@ showex(io::IO, x; nfirst = 2, nlast = 2, nsample = 2) = begin
         all_i[end-nlast+1:end],
     )
     shown_ix = all_ix[shown_i]
-    ixlen = maximum(length, string.(shown_ix))
-    printrow(ix) = println(io, lpad(ix, ixlen), ": ", repr(x[ix]))
-    printdots() = println(io, lpad("⋮", ixlen + 2))
+    padlen = 1 + maximum(length, string.(shown_ix))
+        # The extra `1` is the one-space indent of vanilla Vector printing.
+    printrow(ix) = println(io, lpad(ix, padlen), ": ", repr(x[ix]))
+    printdots() = println(io, lpad("⋮", padlen))
     first(shown_i) == first(all_i) || printdots()
     for (i, inext) in ziplongest(shown_i, shown_i[2:end])
         printrow(all_ix[i])
