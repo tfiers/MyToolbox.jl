@@ -12,7 +12,6 @@ using Reexport, Requires
 @reexport using IJulia
 @reexport using BenchmarkTools, Profile
 @reexport using LoggingExtras
-@reexport using Unitful                # used in `show.jl` and `dataframes.jl` (for now).
 
 include("macros.jl")
 export @alias, @exportn
