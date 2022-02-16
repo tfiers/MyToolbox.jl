@@ -26,7 +26,7 @@ include("macros.jl")
 export @alias, @exportn
 
 include("misctools.jl")
-export ziplongest
+export ziplongest, chain
 
 include("show.jl")
 export showsome
