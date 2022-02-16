@@ -1,3 +1,5 @@
+@reexport using PyPlot
+@reexport using Sciplotlib
 
 function savefig(fname; subdir = nothing)
     "figdir" in keys(ENV) || @error "Environment variable `figdir` not set."
