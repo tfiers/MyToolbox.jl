@@ -13,6 +13,7 @@ using Reexport, Requires
                 Printf                 # `@printf`, `@sprintf`
 @reexport using IJulia
 @reexport using BenchmarkTools, Profile
+# using ProfileView, ProfileSVG        # Both export `@profview`; for REPL and notebook use respectively.
 @reexport using LoggingExtras
 @reexport using Pkg
 
