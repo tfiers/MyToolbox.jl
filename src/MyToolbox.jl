@@ -12,8 +12,8 @@ using Reexport, Requires
                 FilePaths,             # `Path` type and `/` joins, as in Python.
                 Printf                 # `@printf`, `@sprintf`
 @reexport using IJulia
-@reexport using BenchmarkTools, Profile
-# using ProfileView, ProfileSVG        # Both export `@profview`; for REPL and notebook use respectively.
+@reexport using BenchmarkTools
+@reexport using Profile, ProfileView   # `@profview`
 @reexport using LoggingExtras
 @reexport using Pkg
 
