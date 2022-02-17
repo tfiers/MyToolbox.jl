@@ -3,6 +3,7 @@ module MyToolbox
 using Reexport, Requires
 
 @reexport using Base.Iterators         # `partition`, `cycle`, `flatten` ("chain"), …
+@reexport using DataStructures         # `DefaultDict`, `OrderedDict`, `counter`, queues, …
 @reexport using Random
 @reexport using StatsBase              # `sample`, `describe`, …. Plus: reexports `Statistics` from stdlib.
 @reexport using PartialFunctions,      # Currying (`func $ a`, like `partial(func, a)` in Python).
