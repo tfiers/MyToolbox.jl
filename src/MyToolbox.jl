@@ -3,6 +3,7 @@ module MyToolbox
 using Reexport, Requires
 
 @reexport using Base.Iterators         # `partition`, `cycle`, `flatten` ("chain"), …
+@reexport using Random
 @reexport using StatsBase              # `sample`, `describe`, …. Plus: reexports `Statistics` from stdlib.
 @reexport using PartialFunctions,      # Currying (`func $ a`, like `partial(func, a)` in Python).
                 PyFormattedStrings,    # f-strings as in Python (but with C format spec).
@@ -20,7 +21,7 @@ include("show.jl")
 export showsome
 
 include("misctools.jl")
-export ziplongest, chain
+export ziplongest, chain, resetrng!
 
 function __init__()
     @require PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee" begin
