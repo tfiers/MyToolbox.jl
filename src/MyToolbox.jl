@@ -14,6 +14,7 @@ using Reexport, Requires
 @reexport using IJulia
 @reexport using BenchmarkTools, Profile
 @reexport using LoggingExtras
+@reexport using Pkg
 
 include("macros.jl")
 export @alias, @exportn
