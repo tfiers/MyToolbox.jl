@@ -12,6 +12,7 @@ using Reexport, Requires
                 FilePaths,             # `Path` type and `/` joins, as in Python.
                 Printf                 # `@printf`, `@sprintf`
 @reexport using IJulia
+@reexport using ProgressMeter
 @reexport using BenchmarkTools
 @reexport using Profile, ProfileView   # `@profview`
 @reexport using LoggingExtras
