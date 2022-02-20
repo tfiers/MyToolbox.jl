@@ -5,15 +5,15 @@ using Reexport, Requires
 @reexport using Base.Iterators         # `partition`, `cycle`, `flatten` ("chain"), …
 @reexport using DataStructures         # `DefaultDict`, `OrderedDict`, `counter`, queues, …
 @reexport using Random
-@reexport using StatsBase              # `sample`, `describe`, …. Plus: reexports `Statistics` from stdlib.
-@reexport using PartialFunctions,      # Currying (`func $ a`, like `partial(func, a)` in Python).
-                PyFormattedStrings,    # f-strings as in Python (but with C format spec).
-                LaTeXStrings,          # `L"These strings can contain $ and \ without escaping"`.
-                FilePaths,             # `Path` type and `/` joins, as in Python.
+@reexport using StatsBase              # `sample`, `describe`, …. Plus: reexports `Statistics` from stdlib
+@reexport using PartialFunctions,      # Currying (`func $ a`, like `partial(func, a)` in Python)
+                PyFormattedStrings,    # f-strings as in Python (but with C format spec)
+                LaTeXStrings,          # `L"These strings can contain $ and \ without escaping"`
+                FilePaths,             # `Path` type and `/` joins, as in Python
                 Printf                 # `@printf`, `@sprintf`
 @reexport using IJulia
 @reexport using ProgressMeter
-@reexport using BenchmarkTools
+@reexport using BenchmarkTools: @benchmark, @btime  # [`params` conflicts when `Distributions` is loaded]
 @reexport using Profile, ProfileView   # `@profview`
 @reexport using LoggingExtras
 @reexport using ComponentArrays
