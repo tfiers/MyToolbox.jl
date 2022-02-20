@@ -1,4 +1,4 @@
-@reexport using PyPlot
+using PyPlot
 
 function savefig(fname; subdir = nothing)
     "figdir" in keys(ENV) || @error "Environment variable `figdir` not set."
