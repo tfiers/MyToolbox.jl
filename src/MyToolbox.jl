@@ -30,8 +30,11 @@ export showsome
 include("cvec.jl")
 export CVec, idvec
 
+include("iter.jl")
+export ziplongest, chain
+
 include("misctools.jl")
-export ziplongest, chain, resetrng!
+export resetrng!
 
 function __init__()
     @require PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee" begin
