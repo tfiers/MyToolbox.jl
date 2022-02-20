@@ -34,7 +34,7 @@ include("iter.jl")
 export ziplongest, chain
 
 include("misctools.jl")
-export resetrng!
+export resetrng!, linspace
 
 function __init__()
     @require PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee" begin
