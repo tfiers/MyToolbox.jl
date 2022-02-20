@@ -15,6 +15,9 @@ using Reexport, Requires
 @reexport using BenchmarkTools
 @reexport using Profile, ProfileView   # `@profview`
 @reexport using LoggingExtras
+@reexport using ComponentArrays
+@reexport using Parameters
+@reexport using Base: @kwdef
 @reexport using Pkg
 
 include("macros.jl")
@@ -22,6 +25,9 @@ export @alias, @exportn
 
 include("show.jl")
 export showsome
+
+include("cvec.jl")
+export CVec, idvec
 
 include("misctools.jl")
 export ziplongest, chain, resetrng!
