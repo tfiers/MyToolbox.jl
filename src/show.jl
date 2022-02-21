@@ -1,14 +1,14 @@
 #=
 Human friendly text representations of relevant types.
-
-IJulia and the REPL call `show(::IO, ::MIME"text/plain", x)` on objects.
-(which defaults to `show(::IO, x)` -- which is meant for serialising, not humans.
-Hence we overload).
 =#
 
-# Non-full precision printing of all floats.
-Base.show(io::IO, ::MIME"text/plain", x::Float64) =
-    show(IOContext(io, :compact => true), x)
+# Non-full precision printing of all standard floats.
+Base.show(io::IO, x::Float64) = invoke(
+    Base.show,
+    Tuple{IO, Base.IEEEFloat},
+    IOContext(io, :compact => true),
+    x,
+)
 
 """
     showsome(x; kw...)
