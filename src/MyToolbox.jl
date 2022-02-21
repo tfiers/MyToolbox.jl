@@ -22,7 +22,7 @@ using Reexport, Requires
 @reexport using Pkg
 
 include("macros.jl")
-export @alias, @exportn
+export @alias
 
 include("show.jl")
 export showsome
