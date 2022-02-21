@@ -2,6 +2,23 @@
 Human friendly text representations of relevant types.
 =#
 
+"""Like `dump` but without type info (nor infinite recursion checking)."""
+function dumpsimple(io::IO, x; depth = 0)
+    io = IOContext(io, :compact => true, :limit => true)
+    indent = "  "^depth
+    for fieldname in fieldnames(typeof(x))
+        val = getproperty(x, fieldname)
+        print(io, indent, fieldname, ": ")
+        if fieldcount(typeof(val)) == 0
+            println(io, val)
+        else
+            println(io, nameof(typeof(val)))
+            dumpsimple(io, val, depth = depth + 1)
+        end
+    end
+end
+dumpsimple(x) = dumpsimple(stdout, x)
+
 """
     showsome(x; kw...)
     showsome(io::IO, x; kw...)
