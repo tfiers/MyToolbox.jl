@@ -2,14 +2,6 @@
 Human friendly text representations of relevant types.
 =#
 
-# Non-full precision printing of all standard floats.
-Base.show(io::IO, x::Float64) = invoke(
-    Base.show,
-    Tuple{IO, Base.IEEEFloat},
-    IOContext(io, :compact => true),
-    x,
-)
-
 """
     showsome(x; kw...)
     showsome(io::IO, x; kw...)
