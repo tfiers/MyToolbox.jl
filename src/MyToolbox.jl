@@ -12,12 +12,13 @@ using Reexport, Requires
                 FilePaths,             # `Path` type and `/` joins, as in Python
                 Printf                 # `@printf`, `@sprintf`
 @reexport using IJulia
-@reexport using ProgressMeter
+@reexport using ProgressMeter          # `@showprogress`
 @reexport using BenchmarkTools: @benchmark, @btime  # [`params` conflicts when `Distributions` is loaded]
 @reexport using Profile, ProfileView   # `@profview`
 @reexport using Logging, LoggingExtras
 @reexport using ComponentArrays
-@reexport using Parameters
+@reexport using Setfield               # `@set`, to make copy of an immutable, plus some diff.
+@reexport using Parameters             # `@unpack`, `@pack!`
 @reexport using Base: @kwdef
 @reexport using Pkg
 
@@ -48,6 +49,7 @@ function __init__()
     if isdefined(Main, :IJulia) && Main.IJulia.inited
         prettify_logging_in_IJulia()
     end
+    # [a todo: eval this in Main: `using FilePathsBase: /`]
 end
 
 end # module
