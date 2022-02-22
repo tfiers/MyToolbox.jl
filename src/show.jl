@@ -1,8 +1,8 @@
 #=
-Human friendly printing relevant types.
+Human friendly printing.
 =#
 
-"""Like `dump` but with: colours, no types, and `:compact` printing by default."""
+"""Like `dump` but without types, with colors, and with `:compact` printing by default."""
 function dumpc(io::IO, @nospecialize(x); depth = 0)
     if fieldcount(typeof(x)) == 0
         printstyled(io, x, "\n", color = :light_blue)
