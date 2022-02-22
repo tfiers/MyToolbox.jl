@@ -25,7 +25,7 @@ include("macros.jl")
 export @alias
 
 include("show.jl")
-export dumpsimple, showsome
+export dumpc, showsome
 
 include("cvec.jl")
 export CVec, idvec

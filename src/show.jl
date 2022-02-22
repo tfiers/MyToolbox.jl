@@ -1,23 +1,23 @@
 #=
-Human friendly text representations of relevant types.
+Human friendly printing relevant types.
 =#
 
-"""Like `dump` but without type info (nor infinite recursion checking)."""
-function dumpsimple(io::IO, x; depth = 0)
-    io = IOContext(io, :compact => true, :limit => true)
-    indent = "  "^depth
-    for fieldname in fieldnames(typeof(x))
-        val = getproperty(x, fieldname)
-        print(io, indent, fieldname, ": ")
-        if fieldcount(typeof(val)) == 0
-            println(io, val)
-        else
-            println(io, nameof(typeof(val)))
-            dumpsimple(io, val, depth = depth + 1)
+"""Like `dump` but with: colours, no types, and `:compact` printing by default."""
+function dumpc(io::IO, @nospecialize(x); depth = 0)
+    if fieldcount(typeof(x)) == 0
+        printstyled(io, x, "\n", color = :light_blue)
+    else
+        printstyled(io, nameof(typeof(x)), "\n", color = :light_black)
+        depth += 1
+        indent = "  "^depth
+        for fieldname in fieldnames(typeof(x))
+            print(io, indent, fieldname, ": ")
+            dumpc(io, getproperty(x, fieldname); depth)
+                # No infinite recursion guard. CBA.
         end
     end
 end
-dumpsimple(x) = dumpsimple(stdout, x)
+dumpc(x) = dumpc(IOContext(stdout, :compact => true, :limit => true), x)
 
 """
     showsome(x; kw...)
