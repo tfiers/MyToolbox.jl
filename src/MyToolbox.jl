@@ -15,7 +15,7 @@ using Reexport, Requires
 @reexport using ProgressMeter
 @reexport using BenchmarkTools: @benchmark, @btime  # [`params` conflicts when `Distributions` is loaded]
 @reexport using Profile, ProfileView   # `@profview`
-@reexport using LoggingExtras
+@reexport using Logging, LoggingExtras
 @reexport using ComponentArrays
 @reexport using Parameters
 @reexport using Base: @kwdef
@@ -44,6 +44,9 @@ function __init__()
     @require DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0" begin
         include("dataframes.jl")
         export printsimple
+    end
+    if isdefined(Main, :IJulia) && Main.IJulia.inited
+        prettify_logging_in_IJulia()
     end
 end
 

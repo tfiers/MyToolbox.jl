@@ -2,6 +2,19 @@
 Human friendly printing.
 =#
 
+"""No more red backgrounds in IJulia output. Also, `@info` will be less verbose."""
+function prettify_logging_in_IJulia()
+    global_logger(get_interactive_logger())
+    redirect_stderr(stdout)
+end
+
+# The default logger in IJulia is a `SimpleLogger(stderr)`, which prints source information
+# not only for `@warn` but also for `@info`. The default logger in the Julia REPL is a
+# `ConsoleLogger(stdout)`, which is smarter.
+get_interactive_logger() = ConsoleLogger(stdout)
+    # `stdout` is a writeable global (e.g. IJulia modifies it). Hence this is a getter and
+    # not a constant.
+
 """Like `dump` but without types, with colors, and with `:compact` printing by default."""
 function dumpc(io::IO, @nospecialize(x); depth = 0)
     if fieldcount(typeof(x)) == 0
