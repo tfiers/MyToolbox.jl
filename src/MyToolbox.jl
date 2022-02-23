@@ -18,7 +18,7 @@ using Reexport, Requires
 @reexport using Profile, ProfileView   # `@profview`
 @reexport using Logging, LoggingExtras
 @reexport using ComponentArrays
-@reexport using Setfield               # `@set`, to make copy of an immutable, plus some diff.
+@reexport using Setfield               # `immut = @set immut.some.field = new`
 @reexport using Parameters             # `@unpack`, `@pack!`, `@with_kw` (> `Base.@kwdef`)
 @reexport using Pkg
 
