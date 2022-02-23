@@ -13,13 +13,13 @@ using Reexport, Requires
                 Printf                 # `@printf`, `@sprintf`
 @reexport using IJulia
 @reexport using ProgressMeter          # `@showprogress`
-@reexport using BenchmarkTools: @benchmark, @btime  # [`params` conflicts when `Distributions` is loaded]
+@reexport using BenchmarkTools: @benchmark, @btime  # Don't import all, bc that includes `params`,
+                                                    # which conflicts when `Distributions` is loaded.
 @reexport using Profile, ProfileView   # `@profview`
 @reexport using Logging, LoggingExtras
 @reexport using ComponentArrays
 @reexport using Setfield               # `@set`, to make copy of an immutable, plus some diff.
-@reexport using Parameters             # `@unpack`, `@pack!`
-@reexport using Base: @kwdef
+@reexport using Parameters             # `@unpack`, `@pack!`, `@with_kw` (> `Base.@kwdef`)
 @reexport using Pkg
 
 include("macros.jl")
