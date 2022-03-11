@@ -10,7 +10,7 @@ export @reexport
     Logging,
     Profile,
     Base.Iterators,        # `partition`, `cycle`, `flatten` (= chain), …
-
+    # ↑ stdlib,
     DataStructures,        # `DefaultDict`, `OrderedDict`, `counter`, queues, …
     StatsBase,             # `sample`, `describe`, …. Plus: reexports `Statistics` from stdlib
     PartialFunctions,      # Currying (`func $ a`, like `partial(func, a)` in Python)
@@ -20,15 +20,17 @@ export @reexport
     Requires,              # `@require PkgName = "…" …` in `__init__`.
     IJulia,
     ProgressMeter,         # `@showprogress`
-    BenchmarkTools: @benchmark, @btime,
-                           # BenchmarkTools exports `params`, which conflicts with
-                           # `Distributions` when that is loaded.
     ProfileView,           # `@profview`
     LoggingExtras,         # `TeeLogger`, `ActiveFilteredLogger`, …
     ComponentArrays,
-    Setfield: @set, @set!, # `immut = @set immut.some.field = new`.
-                           # `set` (the method not macro) clashes with Sciplotlib's.
     Parameters             # `@unpack`, `@pack!`, `@with_kw` (> `Base.@kwdef`)
+
+@reexport using BenchmarkTools: @benchmark, @btime
+    # This exports `params`, which conflicts with `Distributions` when that is loaded.
+
+@reexport using Setfield: @set, @set!   # `@set! immut.some.field = new`.
+    # `set` (the exported method, not the macro) clashes with Sciplotlib's.
+
 
 
 include("macros.jl")
