@@ -1,9 +1,6 @@
 module MyToolbox
 
 using Reexport
-using Requires
-# `@reexport using Requires` and then `using MyToolbox; @require …` in a module does not
-# seem to work.
 
 @reexport using Requires
 @reexport using Base.Iterators         # `partition`, `cycle`, `flatten` ("chain"), …
