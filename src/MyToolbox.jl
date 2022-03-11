@@ -1,7 +1,8 @@
 module MyToolbox
 
-using Reexport, Requires
+using Reexport
 
+@reexport using Requires
 @reexport using Base.Iterators         # `partition`, `cycle`, `flatten` ("chain"), …
 @reexport using DataStructures         # `DefaultDict`, `OrderedDict`, `counter`, queues, …
 @reexport using Random
