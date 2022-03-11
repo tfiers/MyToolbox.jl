@@ -1,6 +1,7 @@
 module MyToolbox
 
 using Reexport
+export @reexport
 
 @reexport using Requires
 @reexport using Base.Iterators         # `partition`, `cycle`, `flatten` ("chain"), …
