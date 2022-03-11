@@ -18,7 +18,8 @@ using Reexport, Requires
 @reexport using Profile, ProfileView   # `@profview`
 @reexport using Logging, LoggingExtras
 @reexport using ComponentArrays
-@reexport using Setfield               # `immut = @set immut.some.field = new`
+@reexport using Setfield: @set, @set!  # `immut = @set immut.some.field = new`.
+                                       # Method (not macro) `set` clashes with Sciplotlib's.
 @reexport using Parameters             # `@unpack`, `@pack!`, `@with_kw` (> `Base.@kwdef`)
 @reexport using Pkg
 
@@ -38,6 +39,8 @@ include("misctools.jl")
 export resetrng!, linspace
 
 function __init__()
+    # See includes below for additional imports and @reexports of MyToolbox, besides those
+    # in the current file.
     @require PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee" begin
         include("figures.jl")
         export savefig
