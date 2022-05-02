@@ -23,7 +23,8 @@ export @reexport
     ProfileView,           # `@profview`
     LoggingExtras,         # `TeeLogger`, `ActiveFilteredLogger`, …
     ComponentArrays,
-    Parameters             # `@unpack`, `@pack!`, `@with_kw` (> `Base.@kwdef`)
+    Parameters,            # `@unpack`, `@pack!`, `@with_kw` (> `Base.@kwdef`)
+    JLD                    # Saving Julia types to HDF5
 
 @reexport using BenchmarkTools: @benchmark, @btime
     # This exports `params`, which conflicts with `Distributions` when that is loaded.
