@@ -12,3 +12,18 @@ macro alias(expr)
         const $(esc(new)) = $(esc(original))
     end
 end
+
+
+"""
+    @withfb "Reticulating splines" slow_function()
+
+Give user feedback: what is happening when the program hangs; and when is it done.
+"""
+macro withfb(description, expr)
+    return quote
+        print($(esc(description)) * " … ")
+        flush(stdout)
+        $(esc(expr))
+        println("done")
+    end
+end

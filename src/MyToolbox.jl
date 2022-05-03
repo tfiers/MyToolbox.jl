@@ -35,7 +35,7 @@ export @reexport
 
 
 include("macros.jl")
-export @alias
+export @alias, @withfb
 
 include("show.jl")
 export dumps, showsome
