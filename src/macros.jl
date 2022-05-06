@@ -21,12 +21,12 @@ Give user feedback: what is happening when the program hangs; and when is it don
 """
 macro withfb(description, expr)
     return quote
-        print($(esc(description)))
+        print($(esc(description)), " … ")
         flush(stdout)
         t0 = time()
         $(esc(expr))
         dt = time() - t0
-        print(" done")
+        print("done")
         if dt > 0.1  # seconds
             @printf " (%.1f s)" dt
         end
