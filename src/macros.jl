@@ -17,7 +17,10 @@ end
 """
     @withfb "Reticulating splines" slow_function()
 
-Give user feedback: what is happening when the program hangs; and when is it done.
+Print the given description of what is happening before running some slow code;
+run the code; and print when it is done (including time taken, if it's not negligible).
+
+The goal is to give user feedback on what is happening when the program hangs.
 """
 macro withfb(description, expr)
     return quote

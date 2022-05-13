@@ -10,15 +10,16 @@ export @reexport
     Logging,
     Profile,
     Base.Iterators,        # `partition`, `cycle`, `flatten` (= chain), …
-    # ↑ stdlib,
+    # ↑ stdlib
+    # ↓ ecosystem
     DataStructures,        # `DefaultDict`, `OrderedDict`, `counter`, queues, …
     StatsBase,             # `sample`, `describe`, …. Plus: reexports `Statistics` from stdlib
-    PartialFunctions,      # Currying (`func $ a`, like `partial(func, a)` in Python)
+    PartialFunctions,      # Currying: `func $ a`, which is like `partial(func, a)` in Python
     PyFormattedStrings,    # f-strings as in Python (but with C format spec)
     LaTeXStrings,          # `L"These strings can contain $ and \ without escaping"`
     FilePaths,             # `Path` type and `/` joins, as in Python
-    Requires,              # `@require PkgName = "…" …` in `__init__`.
-    IJulia,
+    Requires,              # `@require SomePkg …` in `__init__`.
+    IJulia,                # Jupyter notebook kernel
     ProgressMeter,         # `@showprogress`
     ProfileView,           # `@profview`
     LoggingExtras,         # `TeeLogger`, `ActiveFilteredLogger`, …
@@ -27,10 +28,10 @@ export @reexport
     JLD2                   # Saving Julia types to HDF5
 
 @reexport using BenchmarkTools: @benchmark, @btime
-    # This exports `params`, which conflicts with `Distributions` when that is loaded.
+    # By default exports `params`, which conflicts with `Distributions` when that is loaded.
 
 @reexport using Setfield: @set, @set!   # `@set! immut.some.field = new`.
-    # `set` (the exported method, not the macro) clashes with Sciplotlib's.
+    # `set` (the by default exported method, not the @macro) clashes with Sciplotlib's.
 
 
 
