@@ -25,10 +25,10 @@ macro withfb(description, expr)
         flush(stdout)
         t0 = time()
         $(esc(expr))
-        dt = time() - t0
+        time_taken = time() - t0
         print("done")
-        if dt > 0.1  # seconds
-            @printf " (%.1f s)" dt
+        if time_taken > 0.05  # seconds
+            @printf " (%.1f s)" time_taken
         end
         println()
     end
