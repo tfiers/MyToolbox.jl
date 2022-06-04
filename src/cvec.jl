@@ -1,6 +1,9 @@
 
 @alias CVec = ComponentVector
 
+struct Scalar end
+scalar = Scalar()
+
 """
     idvec(first_group_name = first_group_size, …)
 
@@ -14,9 +17,9 @@ Build a `ComponentVector` (CVec) with the given group names and as many elements
 as specified. Each element gets a unique ID within the CVec, which is also its index in the
 CVec.
 
-Specify `nothing` as the group size for a scalar element. Example:
+Specify `scalar` as the group size for a scalar element. Example:
 
-    idvec(A = nothing, B = 1)
+    idvec(A = scalar, B = 1)
     ↓
     CVec(A = 1, B = [2])
 """
@@ -26,6 +29,6 @@ function idvec(; kw...)
     return cvec
 end
 const _temp = 0  # value does not matter; it gets overwritten by `1:length(cvec)` above.
-_expand(val::Nothing) = _temp
+_expand(val::Scalar) = _temp
 _expand(val::Integer) = fill(_temp, val)
 _expand(val::CVec)    = val              # allow nested idvecs

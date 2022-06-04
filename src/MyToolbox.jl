@@ -42,7 +42,7 @@ include("show.jl")
 export dumps, showsome
 
 include("cvec.jl")
-export CVec, idvec
+export CVec, idvec, scalar
 
 include("iter.jl")
 export ziplongest, chain
