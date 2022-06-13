@@ -21,7 +21,6 @@ export @reexport
     Requires,              # `@require SomePkg …` in `__init__`.
     IJulia,                # Jupyter notebook kernel
     ProgressMeter,         # `@showprogress`
-    # ProfileView,           # `@profview`. https://github.com/timholy/ProfileView.jl/issues/205
     LoggingExtras,         # `TeeLogger`, `ActiveFilteredLogger`, …
     ComponentArrays,
     Parameters,            # `@unpack`, `@pack!`, `@with_kw` (> `Base.@kwdef`)
