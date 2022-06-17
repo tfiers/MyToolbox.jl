@@ -2,7 +2,7 @@
 @alias CVec = ComponentVector
 
 struct Scalar end
-scalar = Scalar()
+const scalar = Scalar()
 
 """
     idvec(first_group_name = first_group_size, …)
