@@ -24,6 +24,7 @@ export @reexport
     LoggingExtras,         # `TeeLogger`, `ActiveFilteredLogger`, …
     ComponentArrays,
     Parameters,            # `@unpack`, `@pack!`, `@with_kw` (> `Base.@kwdef`)
+    Match,                 # `@match` pattern matching / switch case
     JLD2                   # Saving Julia types to HDF5
 
 @reexport using BenchmarkTools: @benchmark, @btime
