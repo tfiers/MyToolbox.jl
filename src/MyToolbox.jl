@@ -48,7 +48,7 @@ include("iter.jl")
 export ziplongest, chain
 
 include("misctools.jl")
-export resetrng!, linspace
+export resetrng!, linspace, set_print_precision
 
 
 function __init__()
@@ -68,6 +68,8 @@ function __init__()
         prettify_logging_in_IJulia()
     end
     # [a todo: eval `using FilePathsBase: /` in Main]
+
+    set_print_precision(3)
 end
 
 
