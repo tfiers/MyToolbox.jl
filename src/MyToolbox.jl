@@ -69,7 +69,7 @@ function __init__()
     end
     # [a todo: eval `using FilePathsBase: /` in Main]
 
-    set_print_precision(3)
+    # Cannot `set_print_precision` here if MyToolbox is not the top level module.
 end
 
 
