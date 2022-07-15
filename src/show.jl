@@ -69,3 +69,11 @@ showsome(io::IO, x; nfirst = 2, nlast = 2, nsample = 2) = begin
     last(shown_i) == last(all_i) || printdots()
     return nothing
 end
+
+set_print_precision(digits = 3) = set_print_fmt("%.$(digits)G")
+
+function set_print_fmt(fmt = "%.2f")
+    fmt = Printf.Format(fmt)
+    eval( :( Base.show(io::IO, x::Float64) = Printf.format(io, $fmt, x) ))
+    # eval( :( Base.show(io::IO, x::Float64) = show(io, @sprintf $fmt x) ))
+end

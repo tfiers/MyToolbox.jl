@@ -39,7 +39,7 @@ include("macros.jl")
 export @alias, @withfb
 
 include("show.jl")
-export dumps, showsome
+export dumps, showsome, set_print_precision, set_print_fmt
 
 include("cvec.jl")
 export CVec, idvec, scalar
@@ -48,7 +48,7 @@ include("iter.jl")
 export ziplongest, chain
 
 include("misctools.jl")
-export resetrng!, linspace, set_print_precision
+export resetrng!, linspace
 
 
 function __init__()

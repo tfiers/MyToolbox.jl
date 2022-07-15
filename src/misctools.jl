@@ -60,9 +60,3 @@ linspace(start, stop; num, endpoint = false) = linspace(start, stop, num; endpoi
 #
 # [1]: https://github.com/JuliaLang/julia/issues/27097
 # [2]: https://discourse.julialang.org/t/proposal-of-numpy-like-endpoint-option-for-linspace/6916/13
-
-
-function set_print_precision(digits = 3)
-    fmt = Printf.Format("%.$(digits)G")
-    eval( :( Base.show(io::IO, x::Float64) = Printf.format(io, $fmt, x) ))
-end
