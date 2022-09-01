@@ -21,7 +21,7 @@ export @reexport
     Requires,              # `@require SomePkg …` in `__init__`.
     IJulia,                # Jupyter notebook kernel
     ProgressMeter,         # `@showprogress`
-    Suppressor,            # `@suppress` print output in a function/block
+    Suppressor,            # `@suppress` print output in a function/block. Not threadsafe.
     LoggingExtras,         # `TeeLogger`, `ActiveFilteredLogger`, …
     ComponentArrays,
     Parameters,            # `@unpack`, `@pack!`, `@with_kw` (> `Base.@kwdef`)
