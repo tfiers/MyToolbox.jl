@@ -21,12 +21,13 @@ export @reexport
     Requires,              # `@require SomePkg …` in `__init__`.
     IJulia,                # Jupyter notebook kernel
     ProgressMeter,         # `@showprogress`
-    Suppressor,            # `@suppress` print output in a function/block. Not threadsafe.
     LoggingExtras,         # `TeeLogger`, `ActiveFilteredLogger`, …
     ComponentArrays,
     Parameters,            # `@unpack`, `@pack!`, `@with_kw` (> `Base.@kwdef`)
     Match,                 # `@match` pattern matching / switch case
     JLD2                   # Saving Julia types to HDF5
+    # ↓ pruned
+    # Suppressor,          # `@suppress` print output in a function/block. Not threadsafe.
 
 @reexport using BenchmarkTools: @benchmark, @btime
     # By default exports `params`, which conflicts with `Distributions` when that is loaded.
