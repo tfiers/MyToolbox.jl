@@ -17,7 +17,6 @@ export @reexport
     PartialFunctions,      # Currying: `func $ a`, which is like `partial(func, a)` in Python
     PyFormattedStrings,    # f-strings as in Python (but with C format spec)
     LaTeXStrings,          # `L"These strings can contain $ and \ without escaping"`
-    FilePaths,             # `Path` type and `/` joins, as in Python
     Requires,              # `@require SomePkg …` in `__init__`.
     IJulia,                # Jupyter notebook kernel
     ProgressMeter,         # `@showprogress`
