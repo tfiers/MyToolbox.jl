@@ -62,7 +62,7 @@ function __init__()
     end
     @require DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0" begin
         include("dataframes.jl")
-        export printsimple
+        export printsimple, disp
     end
 
     if isdefined(Main, :IJulia) && Main.IJulia.inited

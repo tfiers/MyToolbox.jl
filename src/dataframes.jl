@@ -12,3 +12,17 @@ printsimple(
     alignment       = :l,                      # for text, not numbers
     kw...
 ) = show(df; summary, eltypes, show_row_number, formatters, alignment, kw...)
+
+
+function disp(df, rows = 100, cols = 400)
+    l = ENV["LINES"]
+    c = ENV["COLUMNS"]
+
+    ENV["LINES"] = rows
+    ENV["COLUMNS"] = cols
+    display(df)
+
+    ENV["LINES"] = l
+    ENV["COLUMNS"] = c
+    return nothing
+end
