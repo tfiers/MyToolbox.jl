@@ -14,7 +14,7 @@ printsimple(
 ) = show(df; summary, eltypes, show_row_number, formatters, alignment, kw...)
 
 
-function disp(df, rows = 100, cols = 400)
+function disp(df::DataFrame, rows = 100, cols = 400)
     l = ENV["LINES"]
     c = ENV["COLUMNS"]
 
@@ -26,3 +26,6 @@ function disp(df, rows = 100, cols = 400)
     ENV["COLUMNS"] = c
     return nothing
 end
+
+# for piping
+disp(rows = 100, cols = 400) = (df -> disp(df, rows, cols))
