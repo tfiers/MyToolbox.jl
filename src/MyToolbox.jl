@@ -42,6 +42,9 @@ export @alias, @withfb
 include("show.jl")
 export dumps, showsome, set_print_precision, set_print_fmt
 
+include("displaytable.jl")
+export DisplayTable
+
 include("cvec.jl")
 export CVec, idvec, scalar
 
