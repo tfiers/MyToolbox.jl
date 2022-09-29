@@ -10,6 +10,7 @@ export @reexport
     Logging,
     Profile,
     Base.Iterators,        # `partition`, `cycle`, `flatten` (= chain), …
+    Markdown,              # `.parse`, `.html`
     # ↑ stdlib
     # ↓ ecosystem
     DataStructures,        # `DefaultDict`, `OrderedDict`, `counter`, queues, …
@@ -24,7 +25,8 @@ export @reexport
     ComponentArrays,
     Parameters,            # `@unpack`, `@pack!`, `@with_kw` (> `Base.@kwdef`)
     Match,                 # `@match` pattern matching / switch case
-    JLD2                   # Saving Julia types to HDF5
+    JLD2,                  # Saving Julia types to HDF5
+    Chain                  # `@chain df begin`
     # ↓ pruned
     # Suppressor,          # `@suppress` print output in a function/block. Not threadsafe.
 
@@ -40,7 +42,7 @@ include("macros.jl")
 export @alias, @withfb
 
 include("show.jl")
-export dumps, showsome, set_print_precision, set_print_fmt
+export dumps, showsome, set_print_precision, set_float_print_fmt
 
 include("displaytable.jl")
 export DisplayTable
@@ -62,7 +64,9 @@ function __init__()
     @require PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee" begin
         include("figures.jl")
         export savefig
+        autodisplay_figs_in_sysimg()
     end
+
     @require DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0" begin
         include("dataframes.jl")
         export printsimple, disp
@@ -70,10 +74,12 @@ function __init__()
 
     if isdefined(Main, :IJulia) && Main.IJulia.inited
         prettify_logging_in_IJulia()
+        output_html_too_for_md()
     end
-    # [a todo: eval `using FilePathsBase: /` in Main]
 
-    # Cannot `set_print_precision` here if MyToolbox is not the top level module.
+    # Cannot `set_print_precision` here if MyToolbox is not the top level module. (Then
+    # error: `InitError: Evaluation into the closed module breaks incremental compilation
+    # [..]`).
 end
 
 

@@ -9,10 +9,15 @@ struct DisplayTable
     cells   ::Matrix{Any}
     title   ::String
     to_bold ::Vector{NTuple{2,Int}}
+
+    DisplayTable(cells, title = "", to_bold = []) =
+        new(cells, title, to_bold |> collect |> vec .|> Tuple)
 end
 
-# We do not specify ::MIME"text/plain", so that
-# this method is also called for just `show(t)`.
+# We do not specify ::MIME"text/plain", so that this method is also called for just
+# `show(t)`. In principle, `show` without a mime "generally includes type information, and
+# should be parseable Julia code when possible." But nah. (DataFrame also doesn't do this
+# e.g). You can always use `dump`/`dumps` to see the datastructure.
 function Base.show(io::IO, t::DisplayTable)
     printstyled(io, t.title, "\n\n", bold = true)
     nrows, ncols = size(t.cells)
@@ -28,34 +33,44 @@ function Base.show(io::IO, t::DisplayTable)
     end
 end
 
+# We prefer html over markdown, as JupyterBook does not render markdown tables in cell
+# *outputs* (GitHub and Jupyter local do however).
+function Base.show(io::IO, ::MIME"text/html", t::DisplayTable)
+    str = repr("text/markdown", t)
+    md = Markdown.parse(str)
+    ht = Markdown.html(md)
+    htr = replace(ht, "&amp;nbsp;" => "&nbsp;")  # Undo the escaping
+    print(io, htr)
+end
+
 function Base.show(io::IO, ::MIME"text/markdown", t::DisplayTable)
     nrows, ncols = size(t.cells)
     # Prepend two rows, for markdown table header
     nrows_md = nrows + 2
-    tm = Matrix{Any}(missing, nrows_md, ncols)
-    tm[3:end, :] .= t.cells
+    mc = Matrix{Any}(missing, nrows_md, ncols)
+    mc[3:end, :] .= t.cells
     for (r,c) in t.to_bold
         val = t.cells[r,c]
         x = strip(val)
         if x != ""
-            tm[r+2, c] = "**$(x)**"
+            mc[r+2, c] = "**$(x)**"
         end
     end
-    for i in eachindex(tm)
+    for i in eachindex(mc)
         # This hould not be here -- it is Vtms perf matrix specific
-        if (tm[i] isa Symbol)
-            tm[i] = "`$(tm[i])`"
+        if (mc[i] isa Symbol)
+            mc[i] = "`$(mc[i])`"
         end
     end
     content_colwidth = get_colwidths(t.cells)
-    md_colwidths     = get_colwidths(tm)
+    md_colwidths     = get_colwidths(mc)
     # no-breaking spaces, to force widths:
-    tm[1, :] .= ["&nbsp; "^c for c in content_colwidth]
-    tm[2, :] .= ["-"^c       for c in md_colwidths]
-    tm[1,1] = t.title
+    mc[1, :] .= ["&nbsp; "^c for c in content_colwidth]
+    mc[2, :] .= ["-"^c       for c in md_colwidths]
+    mc[1,1] = t.title
     for r in 1:nrows_md
         for c in 1:ncols
-            val = tm[r,c]
+            val = mc[r,c]
             print(io, "|", lpad(val, md_colwidths[c]))
         end
         println(io, "|")

@@ -15,6 +15,7 @@ get_interactive_logger() = ConsoleLogger(stdout)
     # `stdout` is a writeable global (e.g. IJulia modifies it). Hence this is a getter and
     # not a constant.
 
+
 """Like `dump` but without types, with colors, and with `:compact` printing by default."""
 function dumps(io::IO, @nospecialize(x); depth = 0)
     if fieldcount(typeof(x)) == 0
@@ -31,6 +32,7 @@ function dumps(io::IO, @nospecialize(x); depth = 0)
     end
 end
 dumps(x) = dumps(IOContext(stdout, :compact => true, :limit => true), x)
+
 
 """
     showsome(x; kw...)
@@ -70,10 +72,33 @@ showsome(io::IO, x; nfirst = 2, nlast = 2, nsample = 2) = begin
     return nothing
 end
 
-set_print_precision(digits = 3) = set_print_fmt("%.$(digits)G")
 
-function set_print_fmt(fmt = "%.2f")
+set_print_precision(digits = 3) = set_float_print_fmt("%.$(digits)G")
+
+function set_float_print_fmt(fmt = "%.2f")
     fmt = Printf.Format(fmt)
-    eval( :( Base.show(io::IO, x::Float64) = Printf.format(io, $fmt, x) ))
-    # eval( :( Base.show(io::IO, x::Float64) = show(io, @sprintf $fmt x) ))
+    eval( :( Base.show(io::IO, x::Float64) = Printf.format(io, $fmt, x) ) )
+end
+# We don't specify `::MIME"text/plain"` in `show`, so that we also get compact floats in
+# composite types (like when displaying a NamedTuple). Disadvantage is that we cannot use
+# `show(x)` to see full float repr anymore. (One solution is to fmt with many digits).
+
+
+# By default, if both a markdown and an html `show` are available, IJulia only saves the
+# markdown version in the output of a cell.
+# But JupyterBook does not render markdown tables in cell outputs (see displaytable.jl).
+# Hence, we must give it the html-rendered version of markdown.
+function output_html_too_for_md()
+    empty!(IJulia.ijulia_mime_types)
+    append!(IJulia.ijulia_mime_types, [
+        MIME("text/plain"),
+        MIME("image/svg+xml"),
+        [
+            MIME("image/png"),
+            MIME("image/jpeg"),
+        ],
+        MIME("text/latex"),
+        MIME("text/markdown"),
+        MIME("text/html"),
+    ])
 end
