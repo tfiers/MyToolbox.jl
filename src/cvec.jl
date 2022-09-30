@@ -32,3 +32,23 @@ const _temp = 0  # value does not matter; it gets overwritten by `1:length(cvec)
 _expand(val::Scalar) = _temp
 _expand(val::Integer) = fill(_temp, val)
 _expand(val::CVec)    = val              # allow nested idvecs
+
+
+"""
+Alternative API.
+
+    idvec(:A, :B => 1)
+    ↓
+    CVec(A = 1, B = [2])
+"""
+function idvec(args...)
+    groups = []
+    for val in args
+        if val isa Symbol
+            push!(groups, val => scalar)
+        else
+            push!(groups, val)
+        end
+    end
+    idvec(; groups...)
+end
