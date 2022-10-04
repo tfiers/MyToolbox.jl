@@ -17,21 +17,25 @@ get_interactive_logger() = ConsoleLogger(stdout)
 
 
 """Like `dump` but without types, with colors, and with `:compact` printing by default."""
-function dumps(io::IO, @nospecialize(x); depth = 0)
+function dumps(io::IO, @nospecialize(x); depth = 0, skipfields = Symbol[])
     if fieldcount(typeof(x)) == 0
         printstyled(io, x, "\n", color = :light_blue)
     else
-        printstyled(io, nameof(typeof(x)), "\n", color = :light_black)
+        printstyled(io, typeof(x), "\n", color = :light_black)
         depth += 1
         indent = "  "^depth
         for fieldname in fieldnames(typeof(x))
             print(io, indent, fieldname, ": ")
-            dumps(io, getproperty(x, fieldname); depth)
+            if fieldname ∈ skipfields
+                printstyled(io, "[skipped]", "\n", color = :light_cyan)
+            else
+                dumps(io, getproperty(x, fieldname); depth, skipfields)
                 # No infinite recursion guard. CBA.
+            end
         end
     end
 end
-dumps(x) = dumps(IOContext(stdout, :compact => true, :limit => true), x)
+dumps(x; kw...) = dumps(IOContext(stdout, :compact => true, :limit => true), x; kw...)
 
 
 """

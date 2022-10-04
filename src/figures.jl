@@ -19,6 +19,9 @@ When using a sysimg with PyPlot in it, PyPlot's `__init__` gets called before IJ
 initialized. As a result, figures do not get automatically displayed in the notebook.
 (https://github.com/JuliaPy/PyPlot.jl/issues/476).
 Calling this method after IJulia is initialized fixes that.
+
+To temporarily disable auto-display of figures in a notebook,
+set `PyPlot.isjulia_display[] = false`.
 """
 function autodisplay_figs_in_sysimg()
     if (isdefined(Main, :PyPlot) && isdefined(Main, :IJulia) && Main.IJulia.inited
