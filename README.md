@@ -5,7 +5,7 @@ To import at the start of an interactive session. Re-exports useful, small libra
 
 ## Showcase
 
-```julia-repl
+```julia
 julia> using MyToolbox
 
 julia> @alias ODict = OrderedDict;  # Expands to:
