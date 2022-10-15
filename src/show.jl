@@ -48,7 +48,7 @@ entries are shown, and a few randomly sampled entries in between.
 Keyword arguments `nfirst`, `nlast`, and `nsample` determine how many samples to print at
 the beginning, end, and in between. Each defaults to `2`. `io` is `stdout` if not specified.
 """
-showsome(x        ; nfirst = 2, nlast = 2, nsample = 2) = showsome(stdout, x; nfirst, nlast, nsample)
+showsome(x;         nfirst = 2, nlast = 2, nsample = 2) = showsome(stdout, x; nfirst, nlast, nsample)
 showsome(io::IO, x; nfirst = 2, nlast = 2, nsample = 2) = begin
     if length(x) ≤ nfirst + nlast + nsample
         nfirst = length(x)

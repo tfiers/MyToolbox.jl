@@ -39,7 +39,7 @@ export @reexport
 
 
 include("macros.jl")
-export @alias, @withfb
+export @alias, @withfb, @NT, @out
 
 include("show.jl")
 export dumps, showsome, set_print_precision, set_float_print_fmt
