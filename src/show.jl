@@ -77,15 +77,30 @@ showsome(io::IO, x; nfirst = 2, nlast = 2, nsample = 2) = begin
 end
 
 
-set_print_precision(digits = 3) = set_float_print_fmt("%.$(digits)G")
+const float_fmt = Ref("%.2f")
 
-function set_float_print_fmt(fmt = "%.2f")
-    fmt = Printf.Format(fmt)
-    eval( :( Base.show(io::IO, x::Float64) = Printf.format(io, $fmt, x) ) )
+function set_float_print_fmt(fmt_str)
+    float_fmt[] = fmt_str
+    fmt = Printf.Format(fmt_str)
+    Main.eval( :( Base.show(io::IO, x::Float64) = Printf.format(io, $fmt, x) ) )
+    return nothing
 end
 # We don't specify `::MIME"text/plain"` in `show`, so that we also get compact floats in
 # composite types (like when displaying a NamedTuple). Disadvantage is that we cannot use
 # `show(x)` to see full float repr anymore. (One solution is to fmt with many digits).
+
+set_print_precision(digits::Int = 3)         = set_float_print_fmt("%.$(digits)G")
+set_print_precision(digits_and_type::String) = set_float_print_fmt("%.$(digits_and_type)")
+
+macro with_print_precision(p, expr)
+    oldfmt = float_fmt[]
+    return quote
+        set_print_precision($p)
+        println($(esc(expr)))
+        set_float_print_fmt($oldfmt)
+    end
+end
+# This doesn't work if it's a function, hence macro.
 
 
 # By default, if both a markdown and an html `show` are available, IJulia only saves the

@@ -42,7 +42,7 @@ include("macros.jl")
 export @alias, @withfb, @NT, @out
 
 include("show.jl")
-export dumps, showsome, set_print_precision, set_float_print_fmt
+export dumps, showsome, set_print_precision, @with_print_precision
 
 include("displaytable.jl")
 export DisplayTable
