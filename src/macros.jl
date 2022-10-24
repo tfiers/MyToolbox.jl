@@ -22,7 +22,7 @@ run the code; and print when it is done (including time taken, if it's not negli
 
 The goal is to give user feedback on what is happening when the program hangs.
 """
-macro withfb(description, expr)
+macro withfb(description, expr, thr = 0.05)
     return quote
         print($(esc(description)), " … ")
         flush(stdout)
@@ -30,7 +30,7 @@ macro withfb(description, expr)
         $(esc(expr))
         time_taken = time() - t0
         print("done")
-        if time_taken > 0.05  # seconds
+        if time_taken > $thr  # seconds
             @printf " (%.1f s)" time_taken
         end
         println()
