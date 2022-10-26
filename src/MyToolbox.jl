@@ -10,7 +10,7 @@ export @reexport
     Logging,
     Profile,
     Base.Iterators,        # `partition`, `cycle`, `flatten` (= chain), …
-    Markdown,              # `.parse`, `.html`
+    Markdown,              # `.parse`, `.html`, `md"Hello *there*"`
     # ↑ stdlib
     # ↓ ecosystem
     DataStructures,        # `DefaultDict`, `OrderedDict`, `counter`, queues, …
@@ -26,7 +26,8 @@ export @reexport
     Parameters,            # `@unpack`, `@pack!`, `@with_kw` (> `Base.@kwdef`)
     Match,                 # `@match` pattern matching / switch case
     JLD2,                  # Saving Julia types to HDF5
-    Chain                  # `@chain df begin`
+    Chain,                 # `@chain df begin`
+    SnoopPrecompile
     # ↓ pruned
     # Suppressor,          # `@suppress` print output in a function/block. Not threadsafe.
 
@@ -81,6 +82,9 @@ function __init__()
     # error: `InitError: Evaluation into the closed module breaks incremental compilation
     # [..]`).
 end
+
+include("precompile.jl")
+_precompile_()  # actually run, to precompile more than what @precompile_all_calls can.
 
 
 end # module
