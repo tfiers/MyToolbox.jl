@@ -17,8 +17,16 @@ function _precompile_()
         x = 1
         y = x
     end
-    # devnull < dumps, showsome, withfb, displaytable mayb
-    # aren't those already precompiled??
+    dt = DisplayTable([t1 t2; t3 t4])
+    show(devnull, dt)
+    show(devnull, "text/html", dt)
+    iv = idvec(:A, :B => 1)
+    dumps(devnull, iv)
+    showsome(devnull, iv)
+    ls = linspace(0, 10, num=5)
+    it = ziplongest(ls, 1:2)
+    # @alias rose = "name"  # `const` in function not allowed.
+    @withfb "ignore this" chain(it, 1:2)
 
-    return (t1, t2, t3, t4)
+    return (t1, t2, t3, t4, dt, iv, ls)
 end

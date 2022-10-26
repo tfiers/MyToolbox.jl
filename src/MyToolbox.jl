@@ -83,8 +83,10 @@ function __init__()
     # [..]`).
 end
 
-include("precompile.jl")
-_precompile_()  # actually run, to precompile more than what @precompile_all_calls can.
+# include("precompile.jl")
+# @precompile_all_calls _precompile_()
+# ^ Increases package load time by 0.7 seconds,
+#   while first-calls of the precompiled functions are not noticeably faster.
 
 
 end # module
