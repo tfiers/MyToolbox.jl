@@ -29,7 +29,7 @@ function dumps(io::IO, @nospecialize(x); depth = 0, skipfields = Symbol[])
             if fieldname ∈ skipfields
                 printstyled(io, "[skipped]", "\n", color = :light_cyan)
             else
-                dumps(io, getproperty(x, fieldname); depth, skipfields)
+                dumps(io, getfield(x, fieldname); depth, skipfields)
                 # No infinite recursion guard. CBA.
             end
         end
