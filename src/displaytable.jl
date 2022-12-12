@@ -1,9 +1,16 @@
 
 # To print hand-constructed matrixes of values
 #
-# PrettyTables.jl could do that as well, but:
-# - its version is pinned to sth quite old by DataFrames.
-# - it cannot do Markdown
+# Todo: get rid of, and replace by PrettyTables.
+# The below is no longer valid:
+#
+# > PrettyTables.jl could do that as well, but:
+# > - its version is pinned to sth quite old by DataFrames.
+# > - it cannot do Markdown
+#
+# It can do markdown via Text backend, and then `tf=tf_markdown`.
+# And w/ a rel. recent DataFrames upgrade, we have a newer version of PrettyTables too,
+# which is useable.
 
 struct DisplayTable
     cells   ::Matrix{Any}
