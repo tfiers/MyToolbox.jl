@@ -77,7 +77,10 @@ showsome(io::IO, x; nfirst = 2, nlast = 2, nsample = 2) = begin
 end
 
 
-const float_fmt = Ref("%.2f")
+const default_float_fmt = "%.16g"
+# This is approximately (but not entirely) what the default `show(::Float64)` does.
+
+const float_fmt = Ref(default_float_fmt)
 
 function set_float_print_fmt(fmt_str)
     float_fmt[] = fmt_str
@@ -92,15 +95,16 @@ end
 set_print_precision(digits::Int = 3)         = set_float_print_fmt("%.$(digits)G")
 set_print_precision(digits_and_type::String) = set_float_print_fmt("%.$(digits_and_type)")
 
+# Something like `with_print_precision(3) do … end` wouldn't work:
+# it can't be a function, must be a macro.
 macro with_print_precision(p, expr)
     oldfmt = float_fmt[]
     return quote
         set_print_precision($p)
-        println($(esc(expr)))
+        $(esc(expr))
         set_float_print_fmt($oldfmt)
     end
 end
-# This doesn't work if it's a function, hence macro.
 
 
 # By default, if both a markdown and an html `show` are available, IJulia only saves the
