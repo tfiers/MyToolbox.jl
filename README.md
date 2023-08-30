@@ -1,3 +1,10 @@
+
+Update: this package was not a great idea: importing a whole bunch of utility packages into a julia session by default makes the long startup even more painful.
+
+Lesson: only import what you really need, right now.
+
+---
+
 # MyToolbox.jl
 
 To import at the start of an interactive session. Re-exports useful, small libraries, and defines miscellaneous utility functions that don't fit in a proper package.
